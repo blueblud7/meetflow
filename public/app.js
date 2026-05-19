@@ -3,6 +3,7 @@ import { applyTranslations, getLocale, setLocale, t } from "./i18n.js";
 const refs = {
   statusText: document.querySelector("#statusText"),
   timer: document.querySelector("#timer"),
+  permissionButton: document.querySelector("#permissionButton"),
   startButton: document.querySelector("#startButton"),
   stopButton: document.querySelector("#stopButton"),
   summarizeButton: document.querySelector("#summarizeButton"),
@@ -39,6 +40,7 @@ refs.meetingTitle.value = t("defaults.meetingTitle");
 setEmptyMinutes();
 
 refs.startButton.addEventListener("click", startMeeting);
+refs.permissionButton.addEventListener("click", requestMicrophonePermission);
 refs.stopButton.addEventListener("click", stopMeeting);
 refs.summarizeButton.addEventListener("click", summarizeMeeting);
 refs.downloadButton.addEventListener("click", downloadMinutes);
@@ -134,6 +136,22 @@ async function startMeeting() {
     refreshAudioInputs();
   } catch (error) {
     stopMeeting();
+    setStatus("status.error", { message: messageFromError(error) });
+  } finally {
+    setBusy(false);
+  }
+}
+
+async function requestMicrophonePermission() {
+  setBusy(true);
+  setStatus("status.requestingMicrophone");
+
+  try {
+    const stream = await openMicrophone();
+    stream.getTracks().forEach((track) => track.stop());
+    await refreshAudioInputs();
+    setStatus("status.microphoneReady");
+  } catch (error) {
     setStatus("status.error", { message: messageFromError(error) });
   } finally {
     setBusy(false);
@@ -434,6 +452,7 @@ function updateTimer() {
 }
 
 function setBusy(isBusy) {
+  refs.permissionButton.disabled = isBusy || Boolean(state.peerConnection);
   refs.startButton.disabled = isBusy || Boolean(state.peerConnection);
   refs.refreshDevicesButton.disabled = isBusy;
 }
