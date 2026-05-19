@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Meeting Minutes</title>
+    <link rel="stylesheet" href="/styles.css" />
+  </head>
+  <body>
+    <main class="app-shell landing-shell">
+      <header class="landing-nav">
+        <a class="brand-link" href="/" data-i18n="app.title">Meeting Minutes</a>
+        <div class="locale-field" data-i18n-aria-label="form.uiLanguage" role="group">
+          <button class="locale-toggle" type="button" data-locale="ko">KO</button>
+          <button class="locale-toggle" type="button" data-locale="en">EN</button>
+        </div>
+      </header>
+
+      <section class="landing">
+        <div class="landing-content">
+          <p class="eyebrow" data-i18n="landing.eyebrow">AI 회의록 자동화</p>
+          <h1 data-i18n="landing.title">Meeting Minutes</h1>
+          <p class="landing-copy" data-i18n="landing.copy">
+            오프라인 회의 음성을 실시간으로 기록하고, 회의가 끝나면 요약과 TODO를 바로 정리합니다.
+          </p>
+          <div class="landing-actions">
+            <a class="button primary cta-button" href="/app.html" data-i18n="landing.primaryCta">회의 시작하기</a>
+            <a class="button secondary" href="/app.html#minutes" data-i18n="landing.secondaryCta">결과 예시 보기</a>
+          </div>
+          <dl class="landing-points">
+            <div>
+              <dt data-i18n="landing.point1Value">Live</dt>
+              <dd data-i18n="landing.point1Label">실시간 STT</dd>
+            </div>
+            <div>
+              <dt data-i18n="landing.point2Value">KO/EN</dt>
+              <dd data-i18n="landing.point2Label">다국어 회의</dd>
+            </div>
+            <div>
+              <dt data-i18n="landing.point3Value">TODO</dt>
+              <dd data-i18n="landing.point3Label">액션아이템 추출</dd>
+            </div>
+          </dl>
+        </div>
+      </section>
+    </main>
+
+    <script src="/landing.js" type="module"></script>
+  </body>
+</html>
